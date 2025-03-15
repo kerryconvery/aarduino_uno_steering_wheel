@@ -6,12 +6,13 @@ const uint8_t BOTTOM_SENSOR_PIN = A1;
 const int COUNTER_CLOCKWISE = -1;
 const int CLOCKWISE = 1;
 const int ANGLE_INCREMENT = 3;
-const int MAX_ANGLE = 450;
-const int MIN_ANGLE = -450;
+const int MAX_ANGLE = 255;
+const int MIN_ANGLE = 0;
+const int CENTER_ANGLE = 128;
 
 int lastTopSensorState = 0;
 int lastBottomSensorState = 0;
-int angle = 128;
+int angle = CENTER_ANGLE;
 int direction = 0;
 
 void setup() {
@@ -124,7 +125,7 @@ bool noChange(int topSensorState, int bottomSensorState) {
 
 dataForController_t getControllerData(void){
   dataForController_t controllerData = getBlankDataForController();
-  controllerData.leftStickX = map(constrain(angle, MIN_ANGLE, MAX_ANGLE), MIN_ANGLE, MAX_ANGLE, 52, 200);
+  controllerData.leftStickX = angle; // map(constrain(angle, MIN_ANGLE, MAX_ANGLE), MIN_ANGLE, MAX_ANGLE, 52, 200);
   controllerData.leftStickY = 128;
 
   return controllerData;
